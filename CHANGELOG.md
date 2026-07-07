@@ -4,6 +4,179 @@ All notable changes to the Trace Causality Chain Protocol will be documented in 
 
 The project follows an experimental pre-1.0 development model.
 
+## [0.4.0] - 2026-07-07
+
+### Added
+
+* Contribution Causality Graph schema.
+* Contribution graph example.
+* Contributor registry.
+* Contribution node model.
+* Contribution edge model.
+* Artifact reference registry.
+* Causal role classification.
+* Ordinal materiality classification.
+* Node-level confidence assessment.
+* Edge-level confidence assessment.
+* Graph-level confidence assessment.
+* Graph policy configuration.
+* Multi-parent contribution support.
+* Optional multiple-root support.
+* Acyclic graph expectation policy.
+* Semantic graph validation.
+* Duplicate contributor ID detection.
+* Duplicate node ID detection.
+* Duplicate edge ID detection.
+* Unknown contributor reference detection.
+* Unknown artifact reference detection.
+* Unknown node reference detection.
+* Self-loop detection.
+* Cycle detection for acyclic graphs.
+* Multiple-root policy validation.
+* Multiple-parent policy validation.
+* Contribution Causality Graph documentation.
+
+### Contribution Types
+
+v0.4 introduces:
+
+* `origin_question`
+* `trace_creation`
+* `analysis`
+* `generation`
+* `transformation`
+* `selection`
+* `editing`
+* `assembly`
+* `orchestration`
+* `tool_execution`
+* `verification`
+* `annotation`
+* `rejection`
+* `context_provision`
+* `other`
+
+### Causal Roles
+
+v0.4 introduces:
+
+* `root_origin`
+* `enabling`
+* `direct`
+* `contributing`
+* `transformative`
+* `selective`
+* `corrective`
+* `verification`
+* `orchestration`
+* `contextual`
+* `undetermined`
+
+### Materiality Levels
+
+v0.4 introduces:
+
+* `critical`
+* `major`
+* `moderate`
+* `minor`
+* `undetermined`
+
+Materiality is intentionally ordinal.
+
+It does not represent:
+
+* royalty percentage;
+* ownership percentage;
+* legal authorship percentage;
+* monetary value.
+
+### Edge Relationship Types
+
+v0.4 introduces:
+
+* `derived_from`
+* `enabled`
+* `influenced`
+* `transformed_into`
+* `selected_into`
+* `edited_into`
+* `assembled_with`
+* `verified_by`
+* `constrained_by`
+* `depends_on`
+* `superseded_by`
+* `other`
+
+### Design Principle
+
+v0.4 establishes the principle that contribution causality and economic allocation should remain separate layers.
+
+The protocol defines the following progression:
+
+```text
+Causal Evidence
+      ↓
+Contribution Graph
+      ↓
+Contribution Assessment
+      ↓
+Allocation Readiness
+      ↓
+Policy Evaluation
+      ↓
+Royalty Allocation
+```
+
+The Contribution Causality Graph ends before financial allocation.
+
+### Node and Edge Confidence
+
+v0.4 separates confidence in the existence or classification of a contribution event from confidence in the causal relationship connecting events.
+
+```text
+Node Confidence
+       ≠
+Edge Confidence
+```
+
+This allows uncertain causal relationships to remain visible.
+
+### Semantic Validation
+
+v0.4 introduces semantic graph validation in addition to JSON Schema validation.
+
+The validator checks graph-level consistency including:
+
+* unique identifiers;
+* valid references;
+* self-loops;
+* root-count policy;
+* parent-count policy;
+* acyclicity where required.
+
+### Scope
+
+Version 0.4 focuses on:
+
+```text
+Contribution Nodes
+       ↓
+Causal Relationships
+       ↓
+Branching
+       ↓
+Convergence
+       ↓
+Transformation
+       ↓
+Artifact Formation
+```
+
+Financial allocation and royalty execution remain outside the scope of v0.4.
+
+---
+
 ## [0.3.0] - 2026-07-07
 
 ### Added
@@ -26,110 +199,9 @@ The project follows an experimental pre-1.0 development model.
 * Action-to-Artifact Binding documentation.
 * Three-schema validation workflow.
 
-### Binding Types
-
-v0.3 introduces:
-
-* `generated`
-* `transformed`
-* `assembled`
-* `edited`
-* `selected`
-* `verified`
-* `annotated`
-* `rejected`
-* `other`
-
-### Contribution Scope Types
-
-v0.3 introduces:
-
-* `whole_artifact`
-* `section`
-* `file`
-* `json_pointer`
-* `line_range`
-* `byte_range`
-* `time_range`
-* `custom`
-
-### Transformation Types
-
-v0.3 introduces:
-
-* `summarization`
-* `translation`
-* `rewriting`
-* `code_generation`
-* `code_modification`
-* `aggregation`
-* `filtering`
-* `conversion`
-* `human_edit`
-* `model_edit`
-* `other`
-
 ### Design Principle
 
-v0.3 establishes the principle that an action should be bindable to a specific artifact fragment rather than being automatically attributed to an entire artifact.
-
-The protocol distinguishes:
-
-```text
-Artifact Identity
-        ≠
-Contribution Scope
-```
-
-An artifact may contain contributions from multiple humans, agents, tools, and transformation processes.
-
-### Selection as Contribution
-
-v0.3 recognizes selection as distinct from generation.
-
-For example:
-
-```text
-Agent
-→ generates candidates
-
-Human
-→ selects candidate
-
-Human
-→ edits candidate
-
-Verifier
-→ verifies result
-```
-
-These activities may be recorded as separate bindings.
-
-v0.3 does not assign financial values to these activities.
-
-### Verification Without Authorship
-
-Verification may be recorded independently from generation or editing.
-
-A participant that verifies an artifact is not automatically represented as its generator or author.
-
-### Scope
-
-Version 0.3 focuses on:
-
-```text
-Delegated Action
-       ↓
-Action Receipt
-       ↓
-Transformation
-       ↓
-Artifact Binding
-       ↓
-Artifact Fragment
-```
-
-Contribution graph construction and royalty allocation remain outside the scope of v0.3.
+v0.3 established the principle that an action should be bindable to a specific artifact fragment rather than automatically attributed to an entire artifact.
 
 ---
 
@@ -138,64 +210,19 @@ Contribution graph construction and royalty allocation remain outside the scope 
 ### Added
 
 * Delegation Causality Chain schema.
-* Delegation chain example.
 * Root intent model.
 * Participant registry.
 * Delegation step records.
-* Delegator and delegatee relationships.
-* Delegation type classification.
-* Delegated task model.
 * Authority scope model.
-* Allowed action declarations.
-* Prohibited action declarations.
-* Redelegation permission field.
-* Maximum delegation depth field.
 * Constraint inheritance model.
-* Parent delegation step references.
-* Optional handoff record references.
-* Optional action receipt references.
-* Optional result references.
+* Parent delegation relationships.
+* Handoff references.
+* Result references.
 * Chain lifecycle status.
-* Causality Link Record references.
-* Delegation Causality Chain documentation.
-* Multi-schema example validation.
-
-### Delegation Types
-
-v0.2 introduced:
-
-* `human_to_agent`
-* `agent_to_agent`
-* `agent_to_sub_agent`
-* `agent_to_tool`
-* `system_to_agent`
-* `handoff`
-* `result_return`
-* `other`
-
-### Constraint Inheritance Modes
-
-v0.2 introduced:
-
-* `strict`
-* `bounded_extension`
-* `explicit_override`
-* `none`
 
 ### Design Principle
 
 v0.2 established the principle that delegation is not equivalent to unlimited authority.
-
-Delegated work should preserve the visibility of:
-
-* originating intent;
-* task scope;
-* allowed actions;
-* prohibited actions;
-* redelegation rules;
-* delegation depth;
-* inherited constraints;
-* downstream constraint changes.
 
 ---
 
@@ -204,40 +231,15 @@ Delegated work should preserve the visibility of:
 ### Added
 
 * Initial protocol structure.
-* Causality Link Record JSON Schema.
-* Example YAML record.
+* Causality Link Record schema.
+* Cause and effect event references.
 * Evidence reference model.
-* Cause event and effect event references.
-* Explicit causal relationship classification.
-* Causality confidence scoring with textual basis.
-* Human review status model.
-* Optional structured human review record.
-* Example validation script.
-* GitHub Actions validation workflow.
-* Initial protocol documentation.
-
-### Relation Types
-
-v0.1 introduced:
-
-* `direct_cause`
-* `contributing_cause`
-* `enabling_condition`
-* `transformation`
-* `delegation`
-* `influence`
-* `temporal_precedence`
-* `structural_similarity`
-* `independent_convergence`
-* `unknown`
+* Relationship classification.
+* Causality confidence assessment.
+* Human review state.
+* Validation workflow.
+* Initial documentation.
 
 ### Design Principle
 
-v0.1 established the principle that causal attribution must remain distinct from:
-
-* chronological order;
-* structural similarity;
-* influence;
-* independent convergence.
-
-Causal claims should be represented as evidence-backed and reviewable assessments rather than unquestionable facts.
+v0.1 established the principle that causality must remain distinct from chronology, similarity, influence, and independent convergence.
