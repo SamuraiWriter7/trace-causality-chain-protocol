@@ -4,6 +4,135 @@ All notable changes to the Trace Causality Chain Protocol will be documented in 
 
 The project follows an experimental pre-1.0 development model.
 
+## [0.3.0] - 2026-07-07
+
+### Added
+
+* Action Artifact Binding schema.
+* Action-to-artifact example record.
+* Action reference model.
+* Artifact reference model.
+* Optional artifact content hash.
+* Action Receipt references.
+* Delegation Chain references.
+* Delegation Step references.
+* Artifact fragment contribution scopes.
+* Binding type classification.
+* Transformation Chain records.
+* Evidence-backed binding assessment.
+* Binding confidence model.
+* Verification status model.
+* Human review record.
+* Action-to-Artifact Binding documentation.
+* Three-schema validation workflow.
+
+### Binding Types
+
+v0.3 introduces:
+
+* `generated`
+* `transformed`
+* `assembled`
+* `edited`
+* `selected`
+* `verified`
+* `annotated`
+* `rejected`
+* `other`
+
+### Contribution Scope Types
+
+v0.3 introduces:
+
+* `whole_artifact`
+* `section`
+* `file`
+* `json_pointer`
+* `line_range`
+* `byte_range`
+* `time_range`
+* `custom`
+
+### Transformation Types
+
+v0.3 introduces:
+
+* `summarization`
+* `translation`
+* `rewriting`
+* `code_generation`
+* `code_modification`
+* `aggregation`
+* `filtering`
+* `conversion`
+* `human_edit`
+* `model_edit`
+* `other`
+
+### Design Principle
+
+v0.3 establishes the principle that an action should be bindable to a specific artifact fragment rather than being automatically attributed to an entire artifact.
+
+The protocol distinguishes:
+
+```text
+Artifact Identity
+        ≠
+Contribution Scope
+```
+
+An artifact may contain contributions from multiple humans, agents, tools, and transformation processes.
+
+### Selection as Contribution
+
+v0.3 recognizes selection as distinct from generation.
+
+For example:
+
+```text
+Agent
+→ generates candidates
+
+Human
+→ selects candidate
+
+Human
+→ edits candidate
+
+Verifier
+→ verifies result
+```
+
+These activities may be recorded as separate bindings.
+
+v0.3 does not assign financial values to these activities.
+
+### Verification Without Authorship
+
+Verification may be recorded independently from generation or editing.
+
+A participant that verifies an artifact is not automatically represented as its generator or author.
+
+### Scope
+
+Version 0.3 focuses on:
+
+```text
+Delegated Action
+       ↓
+Action Receipt
+       ↓
+Transformation
+       ↓
+Artifact Binding
+       ↓
+Artifact Fragment
+```
+
+Contribution graph construction and royalty allocation remain outside the scope of v0.3.
+
+---
+
 ## [0.2.0] - 2026-07-07
 
 ### Added
@@ -33,7 +162,7 @@ The project follows an experimental pre-1.0 development model.
 
 ### Delegation Types
 
-v0.2 introduces:
+v0.2 introduced:
 
 * `human_to_agent`
 * `agent_to_agent`
@@ -46,7 +175,7 @@ v0.2 introduces:
 
 ### Constraint Inheritance Modes
 
-v0.2 introduces:
+v0.2 introduced:
 
 * `strict`
 * `bounded_extension`
@@ -55,9 +184,9 @@ v0.2 introduces:
 
 ### Design Principle
 
-v0.2 establishes the principle that delegation is not equivalent to unlimited authority.
+v0.2 established the principle that delegation is not equivalent to unlimited authority.
 
-Delegated work should be able to preserve:
+Delegated work should preserve the visibility of:
 
 * originating intent;
 * task scope;
@@ -67,24 +196,6 @@ Delegated work should be able to preserve:
 * delegation depth;
 * inherited constraints;
 * downstream constraint changes.
-
-### Scope
-
-Version 0.2 focuses on delegation lineage:
-
-```text
-Root Intent
-     ↓
-Delegation Step
-     ↓
-Sub-Delegation
-     ↓
-Tool Invocation
-     ↓
-Result Return
-```
-
-Action-to-artifact binding, contribution causality graphs, and royalty readiness remain outside the scope of v0.2.
 
 ---
 
@@ -129,16 +240,4 @@ v0.1 established the principle that causal attribution must remain distinct from
 * influence;
 * independent convergence.
 
-Causal claims should be recorded as evidence-backed and reviewable assessments rather than unquestionable facts.
-
-### Scope
-
-Version 0.1 introduced the atomic causal relationship:
-
-```text
-Cause Event
-     ↓
-Effect Event
-```
-
-Longer causal chains, delegation lineage, action-to-artifact binding, contribution graphs, and royalty readiness were reserved for later versions.
+Causal claims should be represented as evidence-backed and reviewable assessments rather than unquestionable facts.
