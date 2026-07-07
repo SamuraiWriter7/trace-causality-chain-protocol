@@ -1,25 +1,30 @@
-
 # Trace Causality Chain Protocol
 
-An open protocol for recording causal links from human questions and origin traces through agent delegation, actions, transformations, artifacts, audits, contribution graphs, and royalty readiness.
+An open protocol for recording and connecting causal links from human questions and origin traces through agent delegation, actions, transformations, artifacts, contribution graphs, audits, royalty readiness, and human review.
 
 ## Overview
 
-AI-era artifacts increasingly emerge from distributed chains of human questions, traces, agent delegation, analysis, generation, tool execution, transformation, selection, editing, and verification.
+AI-era artifacts increasingly emerge from distributed causal processes.
 
-A final artifact may contain contributions from:
+A human may ask the original question.
 
-* a human originator;
-* one or more AI agents;
-* sub-agents;
-* external tools;
-* retrieved sources;
-* transformation processes;
-* human selection;
-* human editing;
-* automated verification.
+That question may become a persistent trace.
 
-The Trace Causality Chain Protocol provides machine-readable records for preserving the causal relationships across this lifecycle.
+An AI agent may inherit the trace.
+
+Work may be delegated to multiple agents.
+
+Tools may execute calculations or validations.
+
+Actions may generate or transform artifact fragments.
+
+Multiple contributions may branch and converge.
+
+The resulting contribution structure may be audited.
+
+Only after those stages should a system evaluate whether the record is ready for downstream royalty or value-allocation policy.
+
+The Trace Causality Chain Protocol makes this lifecycle machine-readable.
 
 ```text
 Question
@@ -32,8 +37,6 @@ Delegation
    ↓
 Action
    ↓
-Transformation
-   ↓
 Artifact Binding
    ↓
 Contribution Graph
@@ -41,51 +44,17 @@ Contribution Graph
 Audit
    ↓
 Royalty Readiness
+   ↓
+Human Gate
 ```
 
-The protocol develops this structure incrementally.
-
 ---
 
-## Core Principles
+# Protocol Layers
 
-### Evidence Before Attribution
+## v0.1 — Causality Link Record
 
-Causal claims and contribution claims should reference inspectable evidence.
-
-### Similarity Is Not Causation
-
-Temporal precedence, structural similarity, influence, contribution, direct causation, and independent convergence remain distinct.
-
-### Delegation Is Not Unlimited Authority
-
-Delegation may carry explicit permissions, prohibitions, redelegation rules, depth limits, and inherited constraints.
-
-### Constraints Should Survive Delegation
-
-When tasks move through multi-agent systems, inherited constraints should remain visible.
-
-### Artifacts Are Composed of Contributions
-
-An action may contribute to an entire artifact or only to a specific artifact fragment.
-
-### Generation Is Not the Only Contribution
-
-Analysis, transformation, selection, editing, orchestration, verification, annotation, rejection, and contextual input may all be causally relevant.
-
-### Graphs Should Preserve Uncertainty
-
-Contribution nodes and causal edges carry independent confidence assessments.
-
-### Contribution Is Not Allocation
-
-A contribution graph should not automatically become a financial allocation table.
-
----
-
-# v0.1 — Causality Link Record
-
-Version 0.1 introduced the atomic causal relationship:
+Defines an atomic evidence-backed relationship between two events.
 
 ```text
 Cause Event
@@ -93,35 +62,27 @@ Cause Event
 Effect Event
 ```
 
-A record contains:
+The record distinguishes:
 
-* cause event;
-* effect event;
-* relation type;
-* evidence references;
-* causality confidence;
-* review status.
-
-Supported relationships include:
-
-* direct cause;
-* contributing cause;
-* enabling condition;
+* direct causation;
+* contributing causation;
+* enabling conditions;
 * transformation;
 * delegation;
 * influence;
 * temporal precedence;
 * structural similarity;
-* independent convergence;
-* unknown.
+* independent convergence.
 
-The purpose is to record causal claims as evidence-backed and reviewable assessments.
+The central principle is:
+
+> Similarity, chronology, influence, and causation should not be treated as the same thing.
 
 ---
 
-# v0.2 — Delegation Causality Chain
+## v0.2 — Delegation Causality Chain
 
-Version 0.2 introduced structured delegation lineage.
+Records how intent, tasks, authority, and constraints move through humans, agents, sub-agents, systems, and tools.
 
 ```text
 Human
@@ -133,30 +94,29 @@ Sub-Agent
 Tool
 ```
 
-Each chain may record:
+The protocol records:
 
 * root intent;
-* participants;
-* delegated tasks;
-* delegator and delegatee relationships;
+* delegator;
+* delegatee;
+* delegated task;
 * authority scope;
 * allowed actions;
 * prohibited actions;
 * redelegation permission;
-* maximum delegation depth;
+* delegation depth;
 * inherited constraints;
-* parent delegation steps;
-* result references.
+* constraint changes.
 
 The central principle is:
 
-> Delegation should preserve visible responsibility and constraint lineage.
+> Delegation is not unlimited authority.
 
 ---
 
-# v0.3 — Action-to-Artifact Binding
+## v0.3 — Action-to-Artifact Binding
 
-Version 0.3 connected actions to artifacts or artifact fragments.
+Connects actions and transformation chains to artifacts or artifact fragments.
 
 ```text
 Action
@@ -166,286 +126,378 @@ Transformation
 Artifact Fragment
 ```
 
-A binding may identify:
+Bindings may represent:
 
-* action reference;
-* artifact reference;
-* binding type;
-* contribution scope;
-* transformation chain;
-* evidence;
-* binding confidence;
-* verification status.
+* generation;
+* transformation;
+* assembly;
+* editing;
+* selection;
+* verification;
+* annotation;
+* rejection.
 
-Supported binding types include:
+Contribution scopes may identify:
 
-* generated;
-* transformed;
-* assembled;
-* edited;
-* selected;
-* verified;
-* annotated;
-* rejected;
-* other.
+* whole artifacts;
+* sections;
+* files;
+* JSON Pointers;
+* line ranges;
+* byte ranges;
+* time ranges;
+* custom regions.
 
-Supported artifact scopes include:
+The central principle is:
 
-* whole artifact;
-* section;
-* file;
-* JSON Pointer;
-* line range;
-* byte range;
-* time range;
-* custom scope.
-
-v0.3 establishes the principle that artifact-level attribution is often too coarse.
+> Artifact-level attribution is often too coarse.
 
 ---
 
-# v0.4 — Contribution Causality Graph
+## v0.4 — Contribution Causality Graph
 
-Version 0.4 combines individual contribution records into graph-level causal structures.
-
-A graph may represent:
+Combines multiple contribution records into an evidence-backed causal graph.
 
 ```text
-Human Question
-      ↓
 Origin Trace
-      │
-      ├────→ Agent Analysis ────┐
-      │                         │
-      └────→ Tool Execution ────┼──→ Synthesis
-                                │
-External Context ───────────────┘
-             ↓
-       Human Selection
-             ↓
-         Human Edit
-             ↓
-        Verification
+     │
+     ├────→ Agent Analysis ────┐
+     │                         │
+     ├────→ Tool Execution ────┼──→ Synthesis
+     │                         │
+     └────→ Context Input ─────┘
+               ↓
+          Human Selection
+               ↓
+            Editing
+               ↓
+          Verification
 ```
 
-The Contribution Causality Graph contains:
+The graph includes:
 
-* artifact references;
-* contributor records;
+* contributors;
 * contribution nodes;
 * causal edges;
-* contribution scopes;
+* artifact scopes;
 * causal roles;
-* materiality assessments;
+* materiality;
 * node confidence;
 * edge confidence;
 * graph policy;
-* graph-level confidence;
-* human review status.
+* graph-level review.
 
-## Contribution Nodes
+The central principle is:
 
-Supported contribution types include:
+> Contribution causality is not the same as financial allocation.
 
-* `origin_question`
-* `trace_creation`
-* `analysis`
-* `generation`
-* `transformation`
-* `selection`
-* `editing`
-* `assembly`
-* `orchestration`
-* `tool_execution`
-* `verification`
-* `annotation`
-* `rejection`
-* `context_provision`
-* `other`
+---
 
-## Causal Roles
+## v0.5 — Unified Causality Lifecycle
 
-Supported causal roles include:
-
-* `root_origin`
-* `enabling`
-* `direct`
-* `contributing`
-* `transformative`
-* `selective`
-* `corrective`
-* `verification`
-* `orchestration`
-* `contextual`
-* `undetermined`
-
-## Materiality
-
-v0.4 uses ordinal materiality:
-
-* `critical`
-* `major`
-* `moderate`
-* `minor`
-* `undetermined`
-
-Materiality is not a financial percentage.
-
-A critical causal contribution does not automatically receive a fixed royalty share.
-
-## Edge Relationships
-
-Supported relationships include:
-
-* `derived_from`
-* `enabled`
-* `influenced`
-* `transformed_into`
-* `selected_into`
-* `edited_into`
-* `assembled_with`
-* `verified_by`
-* `constrained_by`
-* `depends_on`
-* `superseded_by`
-* `other`
-
-## Node Confidence and Edge Confidence
-
-Contribution event confidence and causal relationship confidence are separate.
+Connects the earlier protocol layers into one lifecycle-level record.
 
 ```text
-Node Confidence
-       ≠
-Edge Confidence
+Question
+   ↓
+Trace
+   ↓
+Causality Link
+   ↓
+Delegation Chain
+   ↓
+Action Receipt
+   ↓
+Artifact Binding
+   ↓
+Contribution Graph
+   ↓
+Audit Bridge
+   ↓
+Royalty Readiness
+   ↓
+Human Gate
 ```
 
-A system may know with high confidence that an action occurred while remaining uncertain about its exact causal influence on a final artifact.
+The Unified Causality Lifecycle is reference-oriented.
 
-v0.4 preserves this distinction.
+It does not duplicate every underlying record inside one large document.
 
-## Contribution Graph Is Not Allocation Graph
+Instead, it preserves:
 
-The protocol intentionally separates:
+* lifecycle stages;
+* record references;
+* lifecycle links;
+* evidence;
+* link confidence;
+* audit state;
+* blocking conditions;
+* readiness checks;
+* human-gate status.
+
+---
+
+# Core Principles
+
+## Evidence Before Attribution
+
+Causal and contribution claims should reference inspectable evidence.
+
+## Similarity Is Not Causation
+
+Structural similarity and temporal precedence should not automatically become claims of derivation.
+
+## Delegation Is Not Unlimited Authority
+
+Agent delegation should preserve visible permission and constraint boundaries.
+
+## Contribution Is Multi-Form
+
+Generation is not the only meaningful contribution.
+
+Analysis, selection, editing, orchestration, verification, and contextual input may all participate in causal formation.
+
+## Nodes and Relationships Have Separate Confidence
+
+The existence of an event may be certain while its causal relationship to another event remains uncertain.
+
+## Contribution Is Not Allocation
+
+A causal graph is evidence for later economic evaluation.
+
+It is not itself a royalty table.
+
+## Audit Is a Bridge
+
+Audit may produce:
+
+* pass;
+* pass with conditions;
+* fail;
+* dispute;
+* blocking conditions.
+
+Audit is not merely ceremonial validation.
+
+## Human Review Remains Explicit
+
+Machine-readable evidence does not remove the need for human judgment in consequential decisions.
+
+---
+
+# Unified Lifecycle Architecture
+
+```text
+┌──────────────────────┐
+│ Human Question       │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Trace                │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Causality Link       │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Delegation Chain     │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Action Receipts      │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Artifact Bindings    │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Contribution Graph   │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Audit Bridge         │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Royalty Readiness    │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│ Human Gate           │
+└──────────────────────┘
+```
+
+---
+
+# Allocation Boundary
+
+The protocol intentionally stops before financial allocation.
 
 ```text
 Causality
    ↓
-Contribution Graph
+Contribution
    ↓
-Contribution Assessment
+Audit
    ↓
-Allocation Readiness
+Royalty Readiness
    ↓
-Policy Evaluation
+Human Gate
+
+====== Boundary ======
+
    ↓
-Royalty Allocation
+Allocation Policy
+   ↓
+Contract Evaluation
+   ↓
+Settlement
+   ↓
+Royalty Distribution
 ```
 
-v0.4 stops before financial allocation.
+The Unified Causality Lifecycle requires:
 
-The protocol does not infer ownership, copyright, or payment percentage from a causal graph alone.
+```text
+financial_allocation_executed: false
+```
+
+This preserves separation between:
+
+```text
+Causality
+≠
+Contribution
+≠
+Value
+≠
+Rights
+≠
+Allocation
+≠
+Payment
+```
 
 ---
 
-# Semantic Graph Validation
+# Audit Bridge
 
-v0.4 extends validation beyond JSON Schema conformance.
+The Audit Bridge records:
 
-The validator checks:
+* audit status;
+* audit references;
+* findings;
+* blocking conditions;
+* proceed permission.
 
-* duplicate contributor IDs;
-* duplicate node IDs;
-* duplicate edge IDs;
-* invalid contributor references;
-* invalid artifact references;
-* invalid node references;
-* self-loops;
-* multiple roots when prohibited;
-* multiple parents when prohibited;
-* cycles when acyclic structure is expected.
+Possible states include:
 
-This establishes two validation layers:
+* `not_requested`
+* `pending`
+* `passed`
+* `passed_with_conditions`
+* `failed`
+* `disputed`
+
+This allows realistic intermediate states.
+
+For example:
 
 ```text
-Schema Validation
-        +
-Semantic Graph Validation
+Contribution Graph: valid
+Audit: passed with conditions
+Rights Review: pending
+Proceed to policy evaluation: allowed
 ```
 
 ---
 
-# Relationship Between Versions
+# Royalty Readiness
 
-```text
-v0.1
-Causality Link
-     ↓
-v0.2
-Delegation Chain
-     ↓
-v0.3
-Action-to-Artifact Binding
-     ↓
-v0.4
-Contribution Causality Graph
-     ↓
-v0.5
-Unified Causality Lifecycle
-```
+Royalty Readiness does not calculate payments.
 
-Each version asks a different question.
+It evaluates whether the causal record is sufficiently mature for external allocation policy evaluation.
 
-### v0.1
+Possible checks include:
 
-What event relates to what event?
+* provenance completeness;
+* contribution graph validity;
+* audit completion;
+* rights review;
+* dispute resolution;
+* human approval requirements.
 
-### v0.2
+Possible readiness states are:
 
-Who delegated what to whom, under what authority and constraints?
-
-### v0.3
-
-Which action contributed to which artifact or artifact fragment?
-
-### v0.4
-
-How do multiple contributions branch, transform, and converge?
-
-### v0.5
-
-How does the full lifecycle connect from originating question to audit and royalty readiness?
+* `not_assessed`
+* `not_ready`
+* `conditionally_ready`
+* `ready`
+* `blocked`
+* `disputed`
 
 ---
 
-# Repository Structure
+# Human Gate
 
-```text
-schemas/
-  causality-link-record.schema.json
-  delegation-causality-chain.schema.json
-  action-artifact-binding.schema.json
-  contribution-causality-graph.schema.json
+The Human Gate records the final lifecycle decision before downstream allocation systems may proceed.
 
-examples/
-  causality-link-record.example.yaml
-  delegation-causality-chain.example.yaml
-  action-artifact-binding.example.yaml
-  contribution-causality-graph.example.yaml
+Possible states include:
 
-docs/
-  causality-link-record.md
-  delegation-causality-chain.md
-  action-to-artifact-binding.md
-  contribution-causality-graph.md
+* `not_required`
+* `pending`
+* `approved`
+* `approved_with_conditions`
+* `rejected`
+* `deferred`
+* `disputed`
 
-scripts/
-  validate_examples.py
-```
+The gate may contain:
+
+* reviewer references;
+* decision timestamp;
+* conditions;
+* decision basis.
 
 ---
 
 # Validation
+
+The protocol uses multiple validation layers.
+
+## Schema Validation
+
+Validates JSON Schema conformance.
+
+## Contribution Graph Validation
+
+Checks:
+
+* contributor references;
+* node references;
+* artifact references;
+* identifier uniqueness;
+* self-loops;
+* cycles;
+* root policies;
+* parent policies.
+
+## Unified Lifecycle Validation
+
+Checks:
+
+* Stage ID uniqueness;
+* sequence uniqueness;
+* Link ID uniqueness;
+* required lifecycle stages;
+* valid Stage references;
+* canonical stage ordering;
+* self-loops;
+* complete path from Question to Human Gate;
+* Audit Bridge consistency;
+* allocation boundary preservation.
 
 Install dependencies:
 
@@ -453,7 +505,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run validation:
+Run:
 
 ```bash
 python scripts/validate_examples.py
@@ -474,115 +526,126 @@ Expected result:
 [validate] Contribution Causality Graph
 [ok] contribution-causality-graph.example.yaml is valid
 
+[validate] Unified Causality Lifecycle
+[ok] unified-causality-lifecycle.example.yaml is valid
+
 [success] all examples are valid
 ```
 
 ---
 
-# Roadmap
-
-## v0.1 — Causality Link Record
-
-Atomic evidence-backed event relationships.
-
-## v0.2 — Delegation Causality Chain
-
-Root intent, delegation lineage, authority scope, and constraint inheritance.
-
-## v0.3 — Action-to-Artifact Binding
-
-Action and transformation binding to artifacts and artifact fragments.
-
-## v0.4 — Contribution Causality Graph
-
-Graph-level representation of branching, converging, and transforming contributions.
-
-## v0.5 — Unified Causality Lifecycle
-
-Unified lifecycle connecting:
+# Repository Structure
 
 ```text
-Question
-↓
-Trace
-↓
-Causality
-↓
-Delegation
-↓
-Action
-↓
-Artifact
-↓
-Contribution Graph
-↓
-Audit
-↓
-Royalty Readiness
-↓
-Human Gate
+schemas/
+  causality-link-record.schema.json
+  delegation-causality-chain.schema.json
+  action-artifact-binding.schema.json
+  contribution-causality-graph.schema.json
+  unified-causality-lifecycle.schema.json
+
+examples/
+  causality-link-record.example.yaml
+  delegation-causality-chain.example.yaml
+  action-artifact-binding.example.yaml
+  contribution-causality-graph.example.yaml
+  unified-causality-lifecycle.example.yaml
+
+docs/
+  causality-link-record.md
+  delegation-causality-chain.md
+  action-to-artifact-binding.md
+  contribution-causality-graph.md
+  unified-causality-lifecycle.md
+
+scripts/
+  validate_examples.py
 ```
+
+---
+
+# Version Arc
+
+```text
+v0.1
+Causality Link Record
+        ↓
+v0.2
+Delegation Causality Chain
+        ↓
+v0.3
+Action-to-Artifact Binding
+        ↓
+v0.4
+Contribution Causality Graph
+        ↓
+v0.5
+Unified Causality Lifecycle
+```
+
+The first protocol arc is complete at v0.5.
 
 ---
 
 # Design Position
 
-The Trace Causality Chain Protocol is a connective causality layer.
+The Trace Causality Chain Protocol is a connective layer.
 
-It does not attempt to replace:
+It does not replace:
 
-* trace systems;
-* task protocols;
-* agent communication protocols;
-* tool execution systems;
-* provenance systems;
-* audit systems;
-* legal systems;
-* royalty systems.
+* Trace systems;
+* Agent communication protocols;
+* Delegation systems;
+* Action Receipt systems;
+* Artifact provenance systems;
+* Audit protocols;
+* Rights systems;
+* Royalty policy systems;
+* Settlement infrastructure.
 
-Its role is to preserve the causal paths connecting them.
+Its purpose is to connect them through explicit, evidence-backed causal relationships.
 
 ```text
-Trace Systems
-      ↓
-Causality Records
-      ↓
-Delegation Chains
-      ↓
-Action Receipts
-      ↓
-Artifact Bindings
-      ↓
-Contribution Graphs
-      ↓
+Trace
+  ↓
+Causality
+  ↓
+Delegation
+  ↓
+Action
+  ↓
+Artifact
+  ↓
+Contribution
+  ↓
 Audit
-      ↓
-Royalty Readiness
+  ↓
+Readiness
 ```
 
 ---
 
 # Philosophy
 
-A complex artifact rarely emerges from one isolated cause.
+A final artifact is only the visible surface of a deeper causal structure.
 
-A future AI-generated work may involve:
+Behind it may exist:
 
-* a human asking the original question;
-* another human preserving the trace;
-* an agent performing research;
-* another agent synthesizing the research;
-* a tool performing calculation;
-* a human selecting one path;
-* another agent rewriting the structure;
-* a human correcting the result;
-* a machine verifying conformance.
+* an originating human question;
+* persistent traces;
+* inherited context;
+* agent delegation;
+* sub-agent analysis;
+* tool execution;
+* transformation;
+* selection;
+* rejection;
+* editing;
+* verification;
+* audit;
+* human judgment.
 
-The final artifact is not merely a file.
-
-It is the visible surface of a hidden causal structure.
-
-The purpose of this protocol is to make that structure inspectable.
+The protocol attempts to preserve this hidden structure.
 
 Before asking:
 
@@ -590,38 +653,43 @@ Before asking:
 
 Before asking:
 
-> Who should be paid?
+> Who should receive value?
 
 Before asking:
 
-> What percentage belongs to whom?
+> What percentage should be allocated?
 
-the system should first ask:
+a system should first be able to answer:
 
-> What happened?
+> Where did this begin?
 
-> Who contributed?
+> What traces were inherited?
 
-> Where did the contribution enter?
+> Who delegated the work?
+
+> What authority was transferred?
+
+> What actions occurred?
+
+> Which artifact regions were affected?
 
 > How did contributions combine?
 
-> What was transformed?
-
-> What was selected?
-
-> What was rejected?
-
-> What was verified?
-
 > What evidence supports each relationship?
 
-Trace Causality Chain Protocol attempts to preserve these answers without pretending that causality, value, ownership, and payment are the same thing.
+> What uncertainties remain?
+
+> Has the structure been audited?
+
+> Is it ready for downstream allocation policy evaluation?
+
+The Trace Causality Chain Protocol exists to make these questions machine-readable without pretending that causality, contribution, rights, value, and payment are the same thing.
 
 ## Status
 
 Experimental specification.
 
-Current version: **v0.4**
+Current version: **v0.5**
 
-The protocol is under active structural development.
+First protocol arc complete.
+
