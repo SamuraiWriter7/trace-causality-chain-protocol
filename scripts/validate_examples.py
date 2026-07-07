@@ -14,13 +14,30 @@ ROOT = Path(__file__).resolve().parent.parent
 VALIDATION_TARGETS = [
     {
         "name": "Causality Link Record",
-        "schema": ROOT / "schemas" / "causality-link-record.schema.json",
-        "example": ROOT / "examples" / "causality-link-record.example.yaml",
+        "schema": ROOT
+        / "schemas"
+        / "causality-link-record.schema.json",
+        "example": ROOT
+        / "examples"
+        / "causality-link-record.example.yaml",
     },
     {
         "name": "Delegation Causality Chain",
-        "schema": ROOT / "schemas" / "delegation-causality-chain.schema.json",
-        "example": ROOT / "examples" / "delegation-causality-chain.example.yaml",
+        "schema": ROOT
+        / "schemas"
+        / "delegation-causality-chain.schema.json",
+        "example": ROOT
+        / "examples"
+        / "delegation-causality-chain.example.yaml",
+    },
+    {
+        "name": "Action Artifact Binding",
+        "schema": ROOT
+        / "schemas"
+        / "action-artifact-binding.schema.json",
+        "example": ROOT
+        / "examples"
+        / "action-artifact-binding.example.yaml",
     },
 ]
 
