@@ -1,0 +1,318 @@
+schema_version: "0.5"
+
+lifecycle_id: "ucl-2026-0001"
+
+created_at: "2026-07-07T03:30:00Z"
+
+root_context:
+  originator_id: "human-creator-001"
+  question_ref: "question://example/question-001"
+  trace_ref: "trace://example/trace-001"
+  intent_summary: >
+    Define a complete causal lifecycle connecting an originating
+    human question to trace records, delegation, actions, artifacts,
+    contribution graphs, audit, royalty readiness, and a human gate.
+
+lifecycle_stages:
+  - stage_id: "stage-001"
+    sequence: 1
+    stage_type: "question"
+    status: "completed"
+    record_refs:
+      - "question://example/question-001"
+    actor_refs:
+      - "human://example/human-creator-001"
+    started_at: "2026-07-07T01:20:00Z"
+    completed_at: "2026-07-07T01:20:00Z"
+
+  - stage_id: "stage-002"
+    sequence: 2
+    stage_type: "trace"
+    status: "completed"
+    record_refs:
+      - "trace://example/trace-001"
+    actor_refs:
+      - "human://example/human-creator-001"
+    started_at: "2026-07-07T01:21:00Z"
+    completed_at: "2026-07-07T01:25:00Z"
+
+  - stage_id: "stage-003"
+    sequence: 3
+    stage_type: "causality"
+    status: "completed"
+    record_refs:
+      - "causality://example/clink-2026-0001"
+    started_at: "2026-07-07T01:30:00Z"
+    completed_at: "2026-07-07T01:35:00Z"
+
+  - stage_id: "stage-004"
+    sequence: 4
+    stage_type: "delegation"
+    status: "completed"
+    record_refs:
+      - "delegation-chain://example/dchain-2026-0001"
+    actor_refs:
+      - "human://example/human-creator-001"
+      - "agent://example/orchestrator-001"
+      - "agent://example/analyst-001"
+    started_at: "2026-07-07T01:45:00Z"
+    completed_at: "2026-07-07T01:58:00Z"
+
+  - stage_id: "stage-005"
+    sequence: 5
+    stage_type: "action"
+    status: "completed"
+    record_refs:
+      - "action-receipt://example/action-analyst-001"
+      - "action-receipt://example/action-orchestrator-001"
+    actor_refs:
+      - "agent://example/analyst-001"
+      - "agent://example/orchestrator-001"
+    started_at: "2026-07-07T01:50:00Z"
+    completed_at: "2026-07-07T02:00:00Z"
+
+  - stage_id: "stage-006"
+    sequence: 6
+    stage_type: "artifact_binding"
+    status: "completed"
+    record_refs:
+      - "binding://example/aabind-2026-0001"
+    started_at: "2026-07-07T02:00:00Z"
+    completed_at: "2026-07-07T02:15:00Z"
+
+  - stage_id: "stage-007"
+    sequence: 7
+    stage_type: "contribution_graph"
+    status: "completed"
+    record_refs:
+      - "contribution-graph://example/ccgraph-2026-0001"
+    started_at: "2026-07-07T02:20:00Z"
+    completed_at: "2026-07-07T03:00:00Z"
+
+  - stage_id: "stage-008"
+    sequence: 8
+    stage_type: "audit"
+    status: "completed_with_conditions"
+    record_refs:
+      - "audit://example/audit-record-001"
+    started_at: "2026-07-07T03:05:00Z"
+    completed_at: "2026-07-07T03:10:00Z"
+
+  - stage_id: "stage-009"
+    sequence: 9
+    stage_type: "royalty_readiness"
+    status: "completed_with_conditions"
+    record_refs:
+      - "royalty-readiness://example/readiness-001"
+    started_at: "2026-07-07T03:12:00Z"
+    completed_at: "2026-07-07T03:20:00Z"
+
+  - stage_id: "stage-010"
+    sequence: 10
+    stage_type: "human_gate"
+    status: "completed_with_conditions"
+    record_refs:
+      - "human-gate://example/gate-001"
+    actor_refs:
+      - "human://example/reviewer-001"
+    started_at: "2026-07-07T03:22:00Z"
+    completed_at: "2026-07-07T03:25:00Z"
+
+record_links:
+  - link_id: "lifecycle-link-001"
+    from_stage_id: "stage-001"
+    to_stage_id: "stage-002"
+    relation_type: "recorded_as"
+    evidence_refs:
+      - "trace://example/trace-001"
+    link_confidence:
+      score: 1.0
+      basis: >
+        The trace explicitly records the originating question.
+
+  - link_id: "lifecycle-link-002"
+    from_stage_id: "stage-002"
+    to_stage_id: "stage-003"
+    relation_type: "causally_linked"
+    evidence_refs:
+      - "causality://example/clink-2026-0001"
+    link_confidence:
+      score: 0.96
+      basis: >
+        The causality record explicitly references the trace.
+
+  - link_id: "lifecycle-link-003"
+    from_stage_id: "stage-003"
+    to_stage_id: "stage-004"
+    relation_type: "delegated_into"
+    evidence_refs:
+      - "delegation-chain://example/dchain-2026-0001"
+    link_confidence:
+      score: 0.94
+      basis: >
+        The delegation chain inherits the root trace and intent.
+
+  - link_id: "lifecycle-link-004"
+    from_stage_id: "stage-004"
+    to_stage_id: "stage-005"
+    relation_type: "executed_as"
+    evidence_refs:
+      - "action-receipt://example/action-analyst-001"
+    link_confidence:
+      score: 0.97
+      basis: >
+        The action receipt references the delegated task.
+
+  - link_id: "lifecycle-link-005"
+    from_stage_id: "stage-005"
+    to_stage_id: "stage-006"
+    relation_type: "bound_into"
+    evidence_refs:
+      - "binding://example/aabind-2026-0001"
+    link_confidence:
+      score: 0.95
+      basis: >
+        The binding record connects the action to the artifact.
+
+  - link_id: "lifecycle-link-006"
+    from_stage_id: "stage-006"
+    to_stage_id: "stage-007"
+    relation_type: "aggregated_into"
+    evidence_refs:
+      - "contribution-graph://example/ccgraph-2026-0001"
+    link_confidence:
+      score: 0.93
+      basis: >
+        The contribution graph references the artifact binding.
+
+  - link_id: "lifecycle-link-007"
+    from_stage_id: "stage-007"
+    to_stage_id: "stage-008"
+    relation_type: "audited_by"
+    evidence_refs:
+      - "audit://example/audit-record-001"
+    link_confidence:
+      score: 0.99
+      basis: >
+        The audit explicitly evaluates the contribution graph.
+
+  - link_id: "lifecycle-link-008"
+    from_stage_id: "stage-008"
+    to_stage_id: "stage-009"
+    relation_type: "assessed_for_readiness"
+    evidence_refs:
+      - "royalty-readiness://example/readiness-001"
+    link_confidence:
+      score: 0.98
+      basis: >
+        Royalty readiness uses the audit result as an input.
+
+  - link_id: "lifecycle-link-009"
+    from_stage_id: "stage-009"
+    to_stage_id: "stage-010"
+    relation_type: "submitted_to_gate"
+    evidence_refs:
+      - "human-gate://example/gate-001"
+    link_confidence:
+      score: 1.0
+      basis: >
+        The readiness assessment was explicitly submitted
+        for human review.
+
+audit_bridge:
+  audit_status: "passed_with_conditions"
+
+  audit_record_refs:
+    - "audit://example/audit-record-001"
+
+  findings_summary: >
+    Provenance, delegation lineage, artifact bindings, and
+    contribution graph structure are sufficiently documented.
+    Final rights policy remains external to this protocol.
+
+  blocking_conditions: []
+
+  proceed_allowed: true
+
+royalty_readiness:
+  readiness_status: "conditionally_ready"
+
+  contribution_graph_ref: >
+    contribution-graph://example/ccgraph-2026-0001
+
+  policy_ref: >
+    royalty-policy://example/policy-001
+
+  readiness_checks:
+    - check_id: "check-001"
+      check_type: "provenance_complete"
+      result: "pass"
+      evidence_refs:
+        - "lifecycle://example/ucl-2026-0001"
+
+    - check_id: "check-002"
+      check_type: "contribution_graph_valid"
+      result: "pass"
+      evidence_refs:
+        - "contribution-graph://example/ccgraph-2026-0001"
+
+    - check_id: "check-003"
+      check_type: "audit_passed"
+      result: "pass"
+      evidence_refs:
+        - "audit://example/audit-record-001"
+
+    - check_id: "check-004"
+      check_type: "rights_reviewed"
+      result: "pending"
+      evidence_refs:
+        - "rights-review://example/review-001"
+
+    - check_id: "check-005"
+      check_type: "human_approval_required"
+      result: "pass"
+      evidence_refs:
+        - "human-gate://example/gate-001"
+
+  financial_allocation_executed: false
+
+  notes: >
+    The lifecycle is ready for external policy evaluation,
+    but financial allocation is explicitly outside this protocol.
+
+human_gate:
+  gate_status: "approved_with_conditions"
+
+  reviewer_refs:
+    - "human://example/reviewer-001"
+
+  decision_at: "2026-07-07T03:25:00Z"
+
+  conditions:
+    - "complete external rights review"
+    - "preserve contribution graph references during allocation"
+
+  decision_basis: >
+    The causal lifecycle is sufficiently documented for
+    downstream policy evaluation, subject to rights review.
+
+lifecycle_status: "completed_with_conditions"
+
+review_status: "human_confirmed"
+
+human_review:
+  reviewer_id: "reviewer-001"
+  decision: "confirmed"
+  reviewed_at: "2026-07-07T03:25:00Z"
+  notes: >
+    Lifecycle structure confirmed. Financial allocation remains
+    outside the scope of this record.
+
+summary: >
+  Unified lifecycle connecting originating question, trace,
+  causality records, delegation, actions, artifact bindings,
+  contribution graph, audit, royalty readiness, and human review.
+
+notes: >
+  This record establishes lifecycle traceability.
+  It does not determine ownership or execute royalty payments.
