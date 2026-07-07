@@ -1,0 +1,58 @@
+schema_version: "0.1"
+
+causality_link_id: "clink-2026-0001"
+
+created_at: "2026-07-07T01:30:00Z"
+
+issuer:
+  issuer_type: "human"
+  issuer_id: "example-creator"
+
+cause_event:
+  event_id: "trace-001"
+  event_type: "trace"
+  occurred_at: "2026-07-01T08:00:00Z"
+  ref: "trace://example/trace-001"
+  summary: >
+    A trace proposing that human questions, agent actions,
+    artifacts, and value return should be connected through
+    an explicit causal chain.
+
+effect_event:
+  event_id: "artifact-001"
+  event_type: "artifact"
+  occurred_at: "2026-07-06T09:00:00Z"
+  ref: "artifact://example/artifact-001"
+  summary: >
+    A protocol draft describing a causality chain from
+    origin traces to agent-generated artifacts.
+
+relation_type: "contributing_cause"
+
+evidence_refs:
+  - evidence_id: "evidence-001"
+    evidence_type: "trace_record"
+    ref: "trace://example/trace-001"
+    description: >
+      Original trace containing the structural concept.
+
+  - evidence_id: "evidence-002"
+    evidence_type: "artifact"
+    ref: "artifact://example/artifact-001"
+    description: >
+      Resulting artifact containing corresponding structural elements.
+
+causality_confidence:
+  score: 0.82
+  basis: >
+    The artifact directly develops several concepts recorded
+    in the earlier trace, but independent contribution and
+    intermediate transformation are also possible.
+
+review_status: "human_review_required"
+
+human_review: null
+
+notes: >
+  This record expresses a supported causal hypothesis.
+  It does not claim exclusive authorship or sole causation.
