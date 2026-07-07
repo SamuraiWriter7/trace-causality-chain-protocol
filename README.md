@@ -8,222 +8,30 @@ AI systems increasingly operate through chains of interactions rather than isola
 
 A human question may create a trace.
 
-That trace may be inherited by an AI agent.
+That trace may become the root intent for an AI agent.
 
-The agent may delegate work to another agent.
+The agent may delegate analysis to another agent.
 
-Several actions and transformations may produce an artifact.
+A sub-agent may invoke a tool.
 
-The artifact may later be audited, reused, transformed, or connected to economic value.
+The resulting work may be transformed into an artifact, audited, reused, and eventually connected to contribution assessment or value return.
 
-However, most current records describe individual events:
+Most existing logs record individual events.
 
-* a trace was created;
-* an agent acted;
-* a task was delegated;
-* an artifact was produced;
-* an audit was performed.
+The Trace Causality Chain Protocol focuses on the relationships between them.
 
-What is often missing is the relationship between them.
-
-The Trace Causality Chain Protocol addresses this gap by defining machine-readable records for expressing evidence-backed causal relationships between events.
-
-The protocol does not assume that chronological order proves causation.
-
-It distinguishes between:
-
-* direct causation;
-* contributing causes;
-* enabling conditions;
-* transformation;
-* delegation;
-* influence;
-* temporal precedence;
-* structural similarity;
-* independent convergence;
-* unknown relationships.
-
-This distinction is central to the protocol.
-
-## Core Principle
-
-> Record causal claims as reviewable, evidence-backed relationships rather than unquestionable facts.
-
-The protocol is designed to preserve uncertainty.
-
-A causality record may express:
-
-* what event is considered the cause;
-* what event is considered the effect;
-* what kind of relationship is claimed;
-* what evidence supports that relationship;
-* how confident the assessment is;
-* whether human review is required;
-* whether the claim has been confirmed, rejected, or disputed.
-
-## v0.1 — Causality Link Record
-
-Version 0.1 introduces the smallest unit of the protocol:
-
-**Causality Link Record**
-
-A Causality Link Record connects one cause event with one effect event.
-
-Conceptually:
-
-```text
-Cause Event
-     │
-     │ evidence-backed relation
-     ▼
-Effect Event
-```
-
-Example:
-
-```text
-Human Question
-     ↓
-Trace
-     ↓
-Artifact
-```
-
-Each individual connection can be recorded independently.
-
-Future versions may combine these links into longer causal chains and contribution graphs.
-
-## Event Types
-
-v0.1 supports references to events including:
-
-* question;
-* trace;
-* delegation;
-* agent action;
-* transformation;
-* artifact;
-* audit;
-* contribution;
-* allocation;
-* other event types.
-
-The protocol stores references rather than requiring every external record format to be embedded directly.
-
-This allows the protocol to connect with independent Trace, Action Receipt, Agent Handoff, Audit, and Royalty systems.
-
-## Relation Types
-
-A causal relationship must not be reduced to a simple binary claim.
-
-v0.1 defines the following relation types:
-
-### `direct_cause`
-
-The cause event is assessed as directly producing the effect event.
-
-### `contributing_cause`
-
-The cause event materially contributed to the effect but was not necessarily sufficient or exclusive.
-
-### `enabling_condition`
-
-The cause event created conditions that made the effect possible.
-
-### `transformation`
-
-The effect is a transformed form or derivative development of the cause.
-
-### `delegation`
-
-The effect occurred through an explicit transfer of responsibility or task authority.
-
-### `influence`
-
-The cause appears to have influenced the effect, but stronger causal attribution is not established.
-
-### `temporal_precedence`
-
-The cause event occurred before the effect event, but causality has not been established.
-
-### `structural_similarity`
-
-The events share notable structural characteristics, without asserting direct influence.
-
-### `independent_convergence`
-
-Similar structures appear to have emerged independently.
-
-### `unknown`
-
-The relationship cannot yet be classified.
-
-## Evidence Before Attribution
-
-The protocol requires at least one evidence reference.
-
-Evidence may include:
-
-* trace records;
-* action receipts;
-* handoff records;
-* artifacts;
-* audit records;
-* external sources;
-* human testimony;
-* other relevant records.
-
-A record is therefore not merely a statement that:
-
-> A caused B.
-
-Instead, it expresses:
-
-> Based on the referenced evidence, A is assessed as having this kind of relationship to B, with this degree of confidence and this review state.
-
-## Confidence and Review
-
-Every record contains a causality confidence assessment.
-
-The confidence score ranges from:
-
-```text
-0.0 → no confidence
-
-1.0 → maximum confidence
-```
-
-The score must include a textual basis explaining why it was assigned.
-
-Confidence is not a substitute for evidence.
-
-Human review states are separately recorded.
-
-Supported review states include:
-
-* unreviewed;
-* machine assessed;
-* human review required;
-* human confirmed;
-* human rejected;
-* disputed.
-
-This separation allows AI systems to propose causal connections without automatically turning those proposals into authoritative claims.
-
-## Design Position
-
-The Trace Causality Chain Protocol is intended to sit between existing trace systems and downstream value systems.
+The protocol is designed to express:
 
 ```text
 Question
    ↓
 Trace
    ↓
-Causality Chain
+Root Intent
    ↓
 Delegation
    ↓
-Action
+Agent Action
    ↓
 Transformation
    ↓
@@ -236,27 +44,214 @@ Contribution Assessment
 Royalty Readiness
 ```
 
-v0.1 does not implement this full lifecycle.
+The protocol develops this lifecycle incrementally.
 
-It establishes the atomic causal link required to build it.
+## Core Principles
 
-## Repository Structure
+### Evidence Before Attribution
+
+Causal relationships should be supported by visible evidence references.
+
+### Similarity Is Not Causation
+
+The protocol distinguishes temporal order, structural similarity, influence, contribution, direct causation, and independent convergence.
+
+### Delegation Is Not Unlimited Authority
+
+A delegated task should be able to carry explicit permissions, prohibitions, redelegation rules, and depth limits.
+
+### Constraints Should Survive Delegation
+
+When work moves from one agent to another, inherited constraints should remain visible.
+
+### Machine Assessment Is Not Final Authority
+
+Machine-generated causal assessments and delegation reconstructions may still require human review.
+
+---
+
+# v0.1 — Causality Link Record
+
+Version 0.1 introduced the atomic causal relationship:
+
+```text
+Cause Event
+     ↓
+Effect Event
+```
+
+A Causality Link Record contains:
+
+* cause event;
+* effect event;
+* relationship type;
+* evidence references;
+* causality confidence;
+* review state.
+
+Supported relation types include:
+
+* `direct_cause`
+* `contributing_cause`
+* `enabling_condition`
+* `transformation`
+* `delegation`
+* `influence`
+* `temporal_precedence`
+* `structural_similarity`
+* `independent_convergence`
+* `unknown`
+
+The purpose of v0.1 is to make causal claims inspectable and reviewable without turning chronological order or similarity into automatic proof of causation.
+
+---
+
+# v0.2 — Delegation Causality Chain
+
+Version 0.2 introduces structured delegation lineage.
+
+A chain may represent:
+
+```text
+Human
+  ↓
+Agent A
+  ↓
+Sub-Agent B
+  ↓
+Tool C
+  ↓
+Result
+```
+
+Each chain begins with a root intent.
+
+The root intent may reference:
+
+* the originating human;
+* a human question;
+* an origin trace;
+* a summary of the intended objective.
+
+Each delegation step records:
+
+* delegator;
+* delegatee;
+* delegated task;
+* delegation type;
+* authority scope;
+* constraint inheritance;
+* parent step;
+* execution status;
+* result reference.
+
+## Authority Scope
+
+A delegation step may define:
+
+```text
+Allowed Actions
+Prohibited Actions
+Redelegation Allowed
+Maximum Delegation Depth
+```
+
+This prevents delegation from being interpreted as unlimited permission.
+
+## Constraint Inheritance
+
+v0.2 defines four constraint inheritance modes:
+
+### `strict`
+
+Inherited constraints remain unchanged.
+
+### `bounded_extension`
+
+Inherited constraints remain active and new downstream constraints may be added.
+
+### `explicit_override`
+
+Inherited constraints may be changed, but the change should be visible and justified.
+
+### `none`
+
+No constraint inheritance is claimed.
+
+## Delegation Types
+
+Supported delegation types include:
+
+* `human_to_agent`
+* `agent_to_agent`
+* `agent_to_sub_agent`
+* `agent_to_tool`
+* `system_to_agent`
+* `handoff`
+* `result_return`
+* `other`
+
+## Branching Delegation
+
+Delegation chains may branch.
+
+```text
+Human
+  ↓
+Agent A
+  ├──→ Analyst Agent
+  ├──→ Verification Agent
+  └──→ Tool
+```
+
+The `parent_step_id` field allows downstream systems to reconstruct delegation lineage.
+
+---
+
+# Relationship Between v0.1 and v0.2
+
+v0.1 records event relationships.
+
+v0.2 records responsibility and authority propagation.
+
+```text
+Causality Link
+      ↓
+Delegation Step
+      ↓
+Delegation Chain
+```
+
+These layers are related but intentionally separate.
+
+A delegation event does not automatically prove that the final artifact was exclusively caused by the original delegator.
+
+The protocol preserves this distinction.
+
+---
+
+# Repository Structure
 
 ```text
 schemas/
   causality-link-record.schema.json
+  delegation-causality-chain.schema.json
 
 examples/
   causality-link-record.example.yaml
+  delegation-causality-chain.example.yaml
 
 scripts/
   validate_examples.py
 
 docs/
   causality-link-record.md
+  delegation-causality-chain.md
 ```
 
-## Validation
+---
+
+# Validation
 
 Install dependencies:
 
@@ -270,53 +265,115 @@ Run validation:
 python scripts/validate_examples.py
 ```
 
-## Roadmap
+Expected result:
 
-### v0.1 — Causality Link Record
+```text
+[validate] Causality Link Record
+[ok] causality-link-record.example.yaml is valid
 
-Define the atomic evidence-backed relationship between a cause event and an effect event.
+[validate] Delegation Causality Chain
+[ok] delegation-causality-chain.example.yaml is valid
 
-### v0.2 — Delegation Causality Chain
+[success] all examples are valid
+```
 
-Connect human delegation, agent handoffs, sub-agent execution, and tool use into traceable causal sequences.
+---
 
-### v0.3 — Action-to-Artifact Binding
+# Roadmap
 
-Connect action receipts and transformation records to generated artifacts.
+## v0.1 — Causality Link Record
 
-### v0.4 — Contribution Causality Graph
+Define an atomic evidence-backed relationship between a cause event and an effect event.
 
-Represent multi-source contribution structures without prematurely converting them into financial allocations.
+## v0.2 — Delegation Causality Chain
 
-### v0.5 — Unified Causality Lifecycle
+Trace root intent, task delegation, authority scope, constraint inheritance, redelegation, and result return.
+
+## v0.3 — Action-to-Artifact Binding
+
+Connect action receipts and transformation events to generated artifacts.
+
+## v0.4 — Contribution Causality Graph
+
+Represent multi-source causal contribution structures without prematurely converting them into financial allocations.
+
+## v0.5 — Unified Causality Lifecycle
 
 Connect questions, traces, delegation, actions, transformations, artifacts, audits, contribution assessment, and royalty readiness.
 
-## Philosophy
+---
 
-Complex outcomes rarely have only one cause.
+# Design Position
 
-AI-generated artifacts may emerge from combinations of:
+The protocol is intended to sit between:
 
-* human questions;
-* previous traces;
-* model behavior;
-* agent delegation;
-* tool output;
-* external sources;
+```text
+Trace Systems
+      ↓
+Causality Layer
+      ↓
+Agent Delegation
+      ↓
+Action Receipts
+      ↓
+Artifact Provenance
+      ↓
+Audit Systems
+      ↓
+Contribution Assessment
+      ↓
+Royalty Systems
+```
+
+It does not attempt to replace all of these systems.
+
+Its role is to connect them through explicit causal and delegation relationships.
+
+---
+
+# Philosophy
+
+Complex AI outcomes rarely emerge from one isolated cause.
+
+An artifact may involve:
+
+* a human question;
+* an origin trace;
+* multiple agents;
+* multiple delegation steps;
+* external tools;
+* retrieved sources;
+* transformation processes;
 * human selection;
-* structural transformation.
+* review and correction.
 
-The purpose of this protocol is not to manufacture certainty.
+The purpose of the Trace Causality Chain Protocol is not to pretend that this complexity can always be reduced to one owner or one cause.
 
-Its purpose is to make causal claims:
+Its purpose is to preserve the chain.
 
-**visible, inspectable, reviewable, disputable, and interoperable.**
+A future AI civilization will require more than action logs.
+
+It will require the ability to answer:
+
+> Where did this begin?
+
+> Who inherited the task?
+
+> What authority did they receive?
+
+> What constraints were preserved?
+
+> What changed along the way?
+
+> Which actions produced the final artifact?
+
+The Trace Causality Chain Protocol begins building that answer one link and one delegation at a time.
 
 ## Status
 
 Experimental specification.
 
-Current version: **v0.1**
+Current version: **v0.2**
 
 The protocol is under active structural development.
+
