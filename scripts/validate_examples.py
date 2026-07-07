@@ -10,12 +10,18 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parent.parent
 
+
 VALIDATION_TARGETS = [
     {
         "name": "Causality Link Record",
         "schema": ROOT / "schemas" / "causality-link-record.schema.json",
         "example": ROOT / "examples" / "causality-link-record.example.yaml",
-    }
+    },
+    {
+        "name": "Delegation Causality Chain",
+        "schema": ROOT / "schemas" / "delegation-causality-chain.schema.json",
+        "example": ROOT / "examples" / "delegation-causality-chain.example.yaml",
+    },
 ]
 
 
@@ -29,12 +35,18 @@ def load_yaml(path: Path) -> dict:
         data = yaml.safe_load(file)
 
     if not isinstance(data, dict):
-        raise ValueError(f"{path} must contain a YAML object at the root.")
+        raise ValueError(
+            f"{path} must contain a YAML object at the root."
+        )
 
     return data
 
 
-def validate_target(name: str, schema_path: Path, example_path: Path) -> bool:
+def validate_target(
+    name: str,
+    schema_path: Path,
+    example_path: Path,
+) -> bool:
     print(f"[validate] {name}")
     print(f"  schema : {schema_path.relative_to(ROOT)}")
     print(f"  example: {example_path.relative_to(ROOT)}")
@@ -54,9 +66,14 @@ def validate_target(name: str, schema_path: Path, example_path: Path) -> bool:
 
     if errors:
         for error in errors:
-            location = ".".join(str(part) for part in error.absolute_path)
+            location = ".".join(
+                str(part) for part in error.absolute_path
+            )
             location = location or "<root>"
-            print(f"Error: {location}: {error.message}")
+
+            print(
+                f"Error: {location}: {error.message}"
+            )
 
         return False
 
@@ -73,6 +90,7 @@ def main() -> int:
             target["schema"],
             target["example"],
         )
+
         all_valid = all_valid and is_valid
 
     if not all_valid:
