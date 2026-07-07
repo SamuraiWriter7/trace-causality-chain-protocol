@@ -1,0 +1,359 @@
+schema_version: "0.4"
+
+contribution_graph_id: "ccgraph-2026-0001"
+
+created_at: "2026-07-07T03:00:00Z"
+
+artifact_refs:
+  - artifact_id: "protocol-document-001"
+    artifact_type: "document"
+    ref: "artifact://example/protocol-document-001"
+    version: "0.4-draft"
+    summary: >
+      Protocol documentation for the Contribution
+      Causality Graph layer.
+
+contributors:
+  - contributor_id: "human-creator-001"
+    contributor_type: "human"
+    role: "originator and final editor"
+
+  - contributor_id: "agent-analyst-001"
+    contributor_type: "sub_agent"
+    role: "causality analyst"
+
+  - contributor_id: "agent-orchestrator-001"
+    contributor_type: "agent"
+    role: "synthesis and orchestration agent"
+
+  - contributor_id: "tool-validator-001"
+    contributor_type: "tool"
+    role: "schema validation tool"
+
+contribution_nodes:
+  - node_id: "node-001"
+    contributor_id: "human-creator-001"
+    contribution_type: "origin_question"
+
+    contribution_scope:
+      scope_type: "upstream_context"
+      description: >
+        Originating question proposing a graph that connects
+        multiple causal contributions without assigning
+        financial percentages.
+
+    causal_role: "root_origin"
+    materiality: "critical"
+
+    evidence_refs:
+      - evidence_id: "node-001-evidence-001"
+        evidence_type: "trace_record"
+        ref: "question://example/question-001"
+        description: >
+          Original question that initiated the protocol work.
+
+    node_confidence:
+      score: 1.0
+      basis: >
+        The originating question is directly recorded.
+
+  - node_id: "node-002"
+    contributor_id: "human-creator-001"
+    contribution_type: "trace_creation"
+
+    causality_link_ref: "causality://example/clink-2026-0001"
+
+    contribution_scope:
+      scope_type: "upstream_context"
+      description: >
+        Origin trace defining the causal graph concept.
+
+    causal_role: "root_origin"
+    materiality: "critical"
+
+    evidence_refs:
+      - evidence_id: "node-002-evidence-001"
+        evidence_type: "trace_record"
+        ref: "trace://example/trace-001"
+        description: >
+          Recorded structural trace preceding downstream analysis.
+
+    node_confidence:
+      score: 0.99
+      basis: >
+        The trace record and chronology directly establish
+        the upstream structural context.
+
+  - node_id: "node-003"
+    contributor_id: "agent-analyst-001"
+    contribution_type: "analysis"
+
+    action_binding_ref: "binding://example/aabind-2026-0001"
+    delegation_chain_ref: "delegation-chain://example/dchain-2026-0001"
+
+    contribution_scope:
+      scope_type: "section"
+      artifact_id: "protocol-document-001"
+      locator: "docs/contribution-causality-graph.md#graph-model"
+      description: >
+        Analytical structure supporting the graph model section.
+
+    causal_role: "contributing"
+    materiality: "major"
+
+    evidence_refs:
+      - evidence_id: "node-003-evidence-001"
+        evidence_type: "action_binding"
+        ref: "binding://example/aabind-2026-0001"
+        description: >
+          Binding connecting the delegated analytical action
+          to the protocol artifact.
+
+    node_confidence:
+      score: 0.92
+      basis: >
+        Action binding and transformation records support
+        the identified contribution.
+
+  - node_id: "node-004"
+    contributor_id: "agent-orchestrator-001"
+    contribution_type: "orchestration"
+
+    delegation_chain_ref: "delegation-chain://example/dchain-2026-0001"
+
+    contribution_scope:
+      scope_type: "whole_artifact"
+      artifact_id: "protocol-document-001"
+      description: >
+        Structural integration of analysis, schema design,
+        and documentation into one coherent protocol version.
+
+    causal_role: "orchestration"
+    materiality: "major"
+
+    evidence_refs:
+      - evidence_id: "node-004-evidence-001"
+        evidence_type: "transformation_log"
+        ref: "transformation-log://example/orchestration-001"
+        description: >
+          Transformation record showing synthesis of multiple inputs.
+
+    node_confidence:
+      score: 0.90
+      basis: >
+        The orchestration record connects multiple upstream
+        inputs to the integrated draft.
+
+  - node_id: "node-005"
+    contributor_id: "human-creator-001"
+    contribution_type: "selection"
+
+    contribution_scope:
+      scope_type: "whole_artifact"
+      artifact_id: "protocol-document-001"
+      description: >
+        Human selection of the final graph direction,
+        boundaries, and protocol scope.
+
+    causal_role: "selective"
+    materiality: "major"
+
+    evidence_refs:
+      - evidence_id: "node-005-evidence-001"
+        evidence_type: "human_testimony"
+        ref: "review://example/human-selection-001"
+        description: >
+          Review record documenting selection of the
+          final structural direction.
+
+    node_confidence:
+      score: 0.95
+      basis: >
+        The selection decision is explicitly recorded.
+
+  - node_id: "node-006"
+    contributor_id: "human-creator-001"
+    contribution_type: "editing"
+
+    contribution_scope:
+      scope_type: "whole_artifact"
+      artifact_id: "protocol-document-001"
+      description: >
+        Human refinement of protocol boundaries, terminology,
+        and final conceptual structure.
+
+    causal_role: "corrective"
+    materiality: "major"
+
+    evidence_refs:
+      - evidence_id: "node-006-evidence-001"
+        evidence_type: "artifact_diff"
+        ref: "diff://example/v0.4-draft-to-reviewed"
+        description: >
+          Difference record showing human revisions.
+
+    node_confidence:
+      score: 0.94
+      basis: >
+        Artifact differences directly show substantial revision.
+
+  - node_id: "node-007"
+    contributor_id: "tool-validator-001"
+    contribution_type: "verification"
+
+    contribution_scope:
+      scope_type: "whole_artifact"
+      artifact_id: "protocol-document-001"
+      description: >
+        Validation of schema structure and example conformance.
+
+    causal_role: "verification"
+    materiality: "moderate"
+
+    evidence_refs:
+      - evidence_id: "node-007-evidence-001"
+        evidence_type: "execution_log"
+        ref: "validation://example/v0.4-validation-001"
+        description: >
+          Validation execution result.
+
+    node_confidence:
+      score: 0.99
+      basis: >
+        The verification action is directly recorded
+        in the execution log.
+
+contribution_edges:
+  - edge_id: "edge-001"
+    from_node_id: "node-001"
+    to_node_id: "node-002"
+    relation_type: "derived_from"
+
+    evidence_refs:
+      - evidence_id: "edge-001-evidence-001"
+        evidence_type: "trace_record"
+        ref: "trace://example/trace-001"
+
+    edge_confidence:
+      score: 0.99
+      basis: >
+        The trace explicitly develops the originating question.
+
+  - edge_id: "edge-002"
+    from_node_id: "node-002"
+    to_node_id: "node-003"
+    relation_type: "enabled"
+
+    evidence_refs:
+      - evidence_id: "edge-002-evidence-001"
+        evidence_type: "delegation_record"
+        ref: "delegation-chain://example/dchain-2026-0001"
+
+    edge_confidence:
+      score: 0.93
+      basis: >
+        The delegated analysis used the trace as an explicit input.
+
+  - edge_id: "edge-003"
+    from_node_id: "node-002"
+    to_node_id: "node-004"
+    relation_type: "influenced"
+
+    evidence_refs:
+      - evidence_id: "edge-003-evidence-001"
+        evidence_type: "transformation_log"
+        ref: "transformation-log://example/orchestration-001"
+
+    edge_confidence:
+      score: 0.89
+      basis: >
+        The trace was one of several inputs used in synthesis.
+
+  - edge_id: "edge-004"
+    from_node_id: "node-003"
+    to_node_id: "node-004"
+    relation_type: "transformed_into"
+
+    evidence_refs:
+      - evidence_id: "edge-004-evidence-001"
+        evidence_type: "action_binding"
+        ref: "binding://example/aabind-2026-0001"
+
+    edge_confidence:
+      score: 0.92
+      basis: >
+        The analytical contribution was incorporated into
+        the orchestrated protocol draft.
+
+  - edge_id: "edge-005"
+    from_node_id: "node-004"
+    to_node_id: "node-005"
+    relation_type: "selected_into"
+
+    evidence_refs:
+      - evidence_id: "edge-005-evidence-001"
+        evidence_type: "human_testimony"
+        ref: "review://example/human-selection-001"
+
+    edge_confidence:
+      score: 0.95
+      basis: >
+        The human review record documents the selection.
+
+  - edge_id: "edge-006"
+    from_node_id: "node-005"
+    to_node_id: "node-006"
+    relation_type: "edited_into"
+
+    evidence_refs:
+      - evidence_id: "edge-006-evidence-001"
+        evidence_type: "artifact_diff"
+        ref: "diff://example/v0.4-draft-to-reviewed"
+
+    edge_confidence:
+      score: 0.96
+      basis: >
+        The selected structure was subsequently revised
+        into the reviewed artifact.
+
+  - edge_id: "edge-007"
+    from_node_id: "node-006"
+    to_node_id: "node-007"
+    relation_type: "verified_by"
+
+    evidence_refs:
+      - evidence_id: "edge-007-evidence-001"
+        evidence_type: "execution_log"
+        ref: "validation://example/v0.4-validation-001"
+
+    edge_confidence:
+      score: 0.99
+      basis: >
+        The validator directly checked the reviewed artifact.
+
+graph_policy:
+  acyclic_expected: true
+  multiple_roots_allowed: false
+  multiple_parents_allowed: true
+
+graph_confidence:
+  score: 0.93
+  basis: >
+    The graph is supported by origin traces, delegation records,
+    action bindings, transformation logs, artifact differences,
+    human review records, and validation results.
+
+review_status: "human_review_required"
+
+human_review: null
+
+graph_summary: >
+  This graph represents the causal contribution structure
+  from originating human question through trace creation,
+  delegated analysis, orchestration, human selection,
+  human editing, and machine verification.
+
+notes: >
+  Materiality classifications describe structural importance
+  within this graph. They are not financial percentages,
+  ownership claims, or royalty allocations.
