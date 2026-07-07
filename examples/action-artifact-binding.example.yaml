@@ -1,0 +1,124 @@
+schema_version: "0.3"
+
+binding_id: "aabind-2026-0001"
+
+created_at: "2026-07-07T02:30:00Z"
+
+action:
+  action_id: "action-analyst-001"
+  action_type: "analyze"
+  actor_id: "agent-analyst-001"
+  actor_type: "sub_agent"
+  occurred_at: "2026-07-07T01:52:00Z"
+
+  action_receipt_ref: "action-receipt://example/action-analyst-001"
+
+  delegation_chain_ref: "delegation-chain://example/dchain-2026-0001"
+
+  delegation_step_ref: "delegation-step://example/step-002"
+
+  input_refs:
+    - "trace://example/trace-001"
+    - "task://example/task-002"
+
+  output_refs:
+    - "artifact://example/delegation-analysis-001"
+
+  summary: >
+    Analyze delegation lineage requirements and identify
+    authority-scope and constraint-inheritance structures.
+
+artifact:
+  artifact_id: "protocol-document-001"
+  artifact_type: "document"
+  ref: "artifact://example/protocol-document-001"
+  created_at: "2026-07-07T02:10:00Z"
+  version: "0.3-draft"
+
+  content_hash:
+    algorithm: "sha256"
+    digest: "example-digest-replace-with-real-sha256"
+
+  summary: >
+    Protocol documentation describing delegation lineage
+    and action-to-artifact binding.
+
+binding_type: "transformed"
+
+contribution_scope:
+  scope_type: "section"
+  locator: "docs/action-to-artifact-binding.md#authority-lineage"
+  description: >
+    The section explaining how delegated authority context
+    is preserved when binding actions to artifacts.
+
+transformation_chain:
+  - transformation_id: "transform-001"
+    transformation_type: "summarization"
+
+    input_refs:
+      - "artifact://example/delegation-analysis-001"
+
+    output_ref: "draft-fragment://example/authority-lineage-summary"
+
+    actor_id: "agent-orchestrator-001"
+
+    occurred_at: "2026-07-07T02:00:00Z"
+
+    notes: >
+      The analyst output was summarized into a compact
+      protocol concept.
+
+  - transformation_id: "transform-002"
+    transformation_type: "human_edit"
+
+    input_refs:
+      - "draft-fragment://example/authority-lineage-summary"
+
+    output_ref: "artifact-fragment://example/authority-lineage-section"
+
+    actor_id: "human-creator-001"
+
+    occurred_at: "2026-07-07T02:08:00Z"
+
+    notes: >
+      Human editing selected, reorganized, and refined the
+      final section structure.
+
+evidence_refs:
+  - evidence_id: "evidence-action-001"
+    evidence_type: "action_receipt"
+    ref: "action-receipt://example/action-analyst-001"
+    description: >
+      Records the analytical action performed by the delegated agent.
+
+  - evidence_id: "evidence-transform-001"
+    evidence_type: "transformation_log"
+    ref: "transformation-log://example/transform-001"
+    description: >
+      Records the transformation from agent analysis into
+      a protocol draft fragment.
+
+  - evidence_id: "evidence-diff-001"
+    evidence_type: "artifact_diff"
+    ref: "diff://example/protocol-document-001/authority-lineage"
+    description: >
+      Shows the changes between the draft fragment and the
+      reviewed artifact section.
+
+binding_confidence:
+  score: 0.91
+  basis: >
+    The action receipt, transformation records, and artifact
+    diff jointly support a strong binding between the agent
+    action and the identified artifact section. Human editing
+    also materially contributed to the final form.
+
+verification_status: "human_review_required"
+
+human_review: null
+
+notes: >
+  This binding identifies a contribution path and does not
+  claim that the bound action was the exclusive cause of the
+  final artifact section.
