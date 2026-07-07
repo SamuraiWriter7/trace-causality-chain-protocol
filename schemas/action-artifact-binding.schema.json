@@ -1,0 +1,436 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/action-artifact-binding.schema.json",
+  "title": "Action Artifact Binding",
+  "description": "A machine-readable record for binding an action or transformation process to an artifact or a specific artifact fragment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "binding_id",
+    "created_at",
+    "action",
+    "artifact",
+    "binding_type",
+    "contribution_scope",
+    "evidence_refs",
+    "binding_confidence",
+    "verification_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.3"
+    },
+    "binding_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "action": {
+      "$ref": "#/$defs/action_reference"
+    },
+    "artifact": {
+      "$ref": "#/$defs/artifact_reference"
+    },
+    "binding_type": {
+      "type": "string",
+      "enum": [
+        "generated",
+        "transformed",
+        "assembled",
+        "edited",
+        "selected",
+        "verified",
+        "annotated",
+        "rejected",
+        "other"
+      ]
+    },
+    "contribution_scope": {
+      "$ref": "#/$defs/contribution_scope"
+    },
+    "transformation_chain": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/transformation_step"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidence_reference"
+      }
+    },
+    "binding_confidence": {
+      "$ref": "#/$defs/confidence_assessment"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "machine_verified",
+        "human_review_required",
+        "human_confirmed",
+        "human_rejected",
+        "disputed"
+      ]
+    },
+    "human_review": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "reviewer_id",
+        "decision",
+        "reviewed_at"
+      ],
+      "properties": {
+        "reviewer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "confirmed",
+            "rejected",
+            "inconclusive"
+          ]
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "action_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_id",
+        "action_type",
+        "actor_id",
+        "occurred_at"
+      ],
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "generate",
+            "analyze",
+            "transform",
+            "edit",
+            "assemble",
+            "select",
+            "verify",
+            "annotate",
+            "tool_execution",
+            "human_intervention",
+            "other"
+          ]
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor_type": {
+          "type": "string",
+          "enum": [
+            "human",
+            "agent",
+            "sub_agent",
+            "system",
+            "tool",
+            "organization",
+            "other"
+          ]
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "action_receipt_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "delegation_chain_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "delegation_step_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "output_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "artifact_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "artifact_type",
+        "ref",
+        "created_at"
+      ],
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_type": {
+          "type": "string",
+          "enum": [
+            "document",
+            "code",
+            "dataset",
+            "image",
+            "audio",
+            "video",
+            "model",
+            "schema",
+            "configuration",
+            "decision_record",
+            "composite",
+            "other"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "string"
+        },
+        "content_hash": {
+          "$ref": "#/$defs/content_hash"
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "content_hash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "digest"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": [
+            "sha256",
+            "sha384",
+            "sha512",
+            "blake3",
+            "other"
+          ]
+        },
+        "digest": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "contribution_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_type"
+      ],
+      "properties": {
+        "scope_type": {
+          "type": "string",
+          "enum": [
+            "whole_artifact",
+            "section",
+            "file",
+            "json_pointer",
+            "line_range",
+            "byte_range",
+            "time_range",
+            "custom"
+          ]
+        },
+        "locator": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number",
+          "minimum": 0
+        },
+        "end": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "line",
+            "byte",
+            "second",
+            "millisecond",
+            "page",
+            "character",
+            "custom"
+          ]
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "transformation_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transformation_id",
+        "transformation_type",
+        "input_refs",
+        "output_ref",
+        "occurred_at"
+      ],
+      "properties": {
+        "transformation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transformation_type": {
+          "type": "string",
+          "enum": [
+            "summarization",
+            "translation",
+            "rewriting",
+            "code_generation",
+            "code_modification",
+            "aggregation",
+            "filtering",
+            "conversion",
+            "human_edit",
+            "model_edit",
+            "other"
+          ]
+        },
+        "input_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "output_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_type",
+        "ref"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "action_receipt",
+            "delegation_record",
+            "transformation_log",
+            "version_control_commit",
+            "artifact_diff",
+            "execution_log",
+            "human_testimony",
+            "external_source",
+            "other"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "confidence_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "basis"
+      ],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
