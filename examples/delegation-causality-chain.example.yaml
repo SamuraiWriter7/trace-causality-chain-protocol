@@ -1,0 +1,173 @@
+schema_version: "0.2"
+
+delegation_chain_id: "dchain-2026-0001"
+
+created_at: "2026-07-07T02:00:00Z"
+
+root_intent:
+  intent_id: "intent-001"
+  originator_id: "human-creator-001"
+  question_ref: "question://example/q-001"
+  trace_ref: "trace://example/trace-001"
+  summary: >
+    Develop a machine-readable protocol for tracing causal
+    lineage from origin traces through delegated AI work.
+
+participants:
+  - participant_id: "human-creator-001"
+    participant_type: "human"
+    role: "originator"
+
+  - participant_id: "agent-orchestrator-001"
+    participant_type: "agent"
+    role: "orchestrator"
+    system_ref: "agent://example/orchestrator-001"
+
+  - participant_id: "agent-analyst-001"
+    participant_type: "sub_agent"
+    role: "causality analyst"
+    system_ref: "agent://example/analyst-001"
+
+  - participant_id: "tool-validator-001"
+    participant_type: "tool"
+    role: "schema validator"
+    system_ref: "tool://example/schema-validator"
+
+delegation_steps:
+  - step_id: "step-001"
+    sequence: 1
+    delegator_id: "human-creator-001"
+    delegatee_id: "agent-orchestrator-001"
+    delegation_type: "human_to_agent"
+
+    delegated_task:
+      task_id: "task-001"
+      summary: >
+        Convert the origin trace into a protocol structure
+        for causal lineage tracking.
+      input_refs:
+        - "trace://example/trace-001"
+      expected_output_type: "protocol-draft"
+
+    authority_scope:
+      allowed_actions:
+        - "read_trace"
+        - "structure_protocol"
+        - "delegate_analysis"
+        - "prepare_schema"
+      prohibited_actions:
+        - "claim_legal_ownership"
+        - "assign_financial_royalties"
+      redelegation_allowed: true
+      max_delegation_depth: 2
+
+    constraint_policy:
+      inheritance_mode: "strict"
+      inherited_constraints:
+        - "preserve_uncertainty"
+        - "do_not_equate_similarity_with_causation"
+      added_constraints: []
+      removed_constraints: []
+
+    parent_step_id: null
+    status: "completed"
+    occurred_at: "2026-07-07T01:45:00Z"
+
+  - step_id: "step-002"
+    sequence: 2
+    delegator_id: "agent-orchestrator-001"
+    delegatee_id: "agent-analyst-001"
+    delegation_type: "agent_to_sub_agent"
+
+    delegated_task:
+      task_id: "task-002"
+      summary: >
+        Analyze delegation lineage requirements and propose
+        fields for authority and constraint inheritance.
+      input_refs:
+        - "trace://example/trace-001"
+        - "task://example/task-001"
+      expected_output_type: "delegation-analysis"
+
+    authority_scope:
+      allowed_actions:
+        - "analyze_delegation"
+        - "classify_authority_scope"
+        - "propose_constraint_fields"
+      prohibited_actions:
+        - "redelegate_task"
+        - "modify_root_intent"
+        - "assign_financial_royalties"
+      redelegation_allowed: false
+      max_delegation_depth: 0
+
+    constraint_policy:
+      inheritance_mode: "strict"
+      inherited_constraints:
+        - "preserve_uncertainty"
+        - "do_not_equate_similarity_with_causation"
+      added_constraints:
+        - "preserve_root_intent"
+      removed_constraints: []
+
+    source_handoff_ref: "handoff://example/handoff-001"
+    parent_step_id: "step-001"
+    status: "completed"
+    occurred_at: "2026-07-07T01:50:00Z"
+    result_ref: "artifact://example/delegation-analysis-001"
+
+  - step_id: "step-003"
+    sequence: 3
+    delegator_id: "agent-orchestrator-001"
+    delegatee_id: "tool-validator-001"
+    delegation_type: "agent_to_tool"
+
+    delegated_task:
+      task_id: "task-003"
+      summary: >
+        Validate the resulting JSON Schema and example YAML.
+      input_refs:
+        - "artifact://example/delegation-schema-001"
+        - "artifact://example/delegation-example-001"
+      expected_output_type: "validation-result"
+
+    authority_scope:
+      allowed_actions:
+        - "read_schema"
+        - "read_example"
+        - "validate"
+        - "return_validation_result"
+      prohibited_actions:
+        - "modify_schema"
+        - "modify_example"
+        - "redelegate_task"
+      redelegation_allowed: false
+      max_delegation_depth: 0
+
+    constraint_policy:
+      inheritance_mode: "bounded_extension"
+      inherited_constraints:
+        - "preserve_uncertainty"
+      added_constraints:
+        - "validation_only"
+      removed_constraints: []
+
+    parent_step_id: "step-001"
+    status: "returned"
+    occurred_at: "2026-07-07T01:58:00Z"
+    result_ref: "validation://example/result-001"
+
+causality_links:
+  - causality_link_id: "clink-2026-0001"
+    ref: "causality://example/clink-2026-0001"
+
+chain_status: "completed"
+
+review_status: "human_review_required"
+
+human_review: null
+
+notes: >
+  The chain records delegation lineage and authority propagation.
+  It does not by itself prove that every downstream artifact was
+  exclusively caused by the root intent.
